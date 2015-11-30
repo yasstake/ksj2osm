@@ -1,6 +1,7 @@
-
+# -*- coding: utf-8 -*-
 
 import xml.etree.ElementTree as ET
+import re
 
 class Fish:
     def __init__(self):
@@ -128,9 +129,11 @@ class Fish:
                 product = f.find(ksj_product)
                 if product != None:
                     self.tag(way, 'ksj_product', product.text)
+                    self.setSeamarkCategory(way, product.text)
 
             else:
                 continue
+
 
 
             if type.text == '11':
@@ -143,6 +146,20 @@ class Fish:
                 pass
             else:
                 pass
+
+    def setSeamarkCategory(self, way, product):
+        category = None
+
+        if re.compile('シンジュ').match(product):
+            self.tag(way, 'seamark:marine_farm:category', 'pearl_culture')
+        elif re.compile('エビ|ウニ').match(product):
+            self.tag(way, 'seamark:marine_farm:category', 'crustaceans')
+        elif re.compile('ギヨルイ|ブリ|ハマチ|カンパチ|ヒラマサ|タイ|アジ|ヒラメ|フグエビ|メジナ|メバル|チヌ|ソノタギヨルイアミシキリ|コワリシキ|サケ|ザケ').match(product):
+            self.tag(way, 'seamark:marine_farm:category', 'fish')
+        elif re.compile('ワカメ|コンブ|ノリ|モズク|アオサ|ヒビ').match(product):
+            self.tag(way, 'seamark:marine_farm:category', 'seaweed')
+        elif re.compile('カイ|ガイ|カキ|ハマグリ|アサリ|シジミ').match(product):
+            self.tag(way, 'seamark:marine_farm:category', 'oysters_mussels')
 
 
     def fishrightId(self, fr):
