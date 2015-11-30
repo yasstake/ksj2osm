@@ -150,15 +150,15 @@ class Fish:
     def setSeamarkCategory(self, way, product):
         category = None
 
-        if re.compile('シンジュ').match(product):
+        if re.compile(u'シンジュ').search(product):
             self.tag(way, 'seamark:marine_farm:category', 'pearl_culture')
-        elif re.compile('エビ|ウニ').match(product):
+        elif re.compile(u'エビ|ウニ').search(product):
             self.tag(way, 'seamark:marine_farm:category', 'crustaceans')
-        elif re.compile('ギヨルイ|ブリ|ハマチ|カンパチ|ヒラマサ|タイ|アジ|ヒラメ|フグエビ|メジナ|メバル|チヌ|ソノタギヨルイアミシキリ|コワリシキ|サケ|ザケ').match(product):
+        elif re.compile(u'ギヨルイ|ブリ|ハマチ|カンパチ|ヒラマサ|タイ|アジ|ヒラメ|フグエビ|メジナ|メバル|チヌ|ソノタギヨルイアミシキリ|コワリシキ|サケ|ザケ').search(product):
             self.tag(way, 'seamark:marine_farm:category', 'fish')
-        elif re.compile('ワカメ|コンブ|ノリ|モズク|アオサ|ヒビ').match(product):
+        elif re.compile(u'ワカメ|コンブ|ノリ|モズク|アオサ|ヒビ').search(product):
             self.tag(way, 'seamark:marine_farm:category', 'seaweed')
-        elif re.compile('カイ|ガイ|カキ|ハマグリ|アサリ|シジミ').match(product):
+        elif re.compile(u'カイ|ガイ|カキ|ハマグリ|アサリ|シジミ').search(product):
             self.tag(way, 'seamark:marine_farm:category', 'oysters_mussels')
 
 
@@ -172,9 +172,9 @@ class Fish:
 if __name__ == '__main__':
     fish = Fish()
 
-    fish.parse("C21-59L-jgd.xml")
+#    fish.parse("C21-59L-jgd.xml")
 
-#    fish.parse("test.xml")
+    fish.parse("test.xml")
     fish.fisharea()
     et = ET.ElementTree(fish.osm)
     et.write('fish2.osm', encoding='utf-8', xml_declaration=True)
