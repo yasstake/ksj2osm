@@ -66,6 +66,8 @@ class Fish:
                 initId = self.id
 
             nd = ET.SubElement(way, 'nd')
+
+            #close polygon
             if initX == x and initY == y and initId != self.id:
                 nd.set('ref', str(initId))
                 lastId = initId
@@ -79,6 +81,7 @@ class Fish:
                 lastId = self.id
 
         if(lastId != initId):
+            nd = ET.SubElement(way, 'nd')
             nd.set('ref', str(initId))
 
         self.tag(way, 'note', "National-Land Numerical Information")
