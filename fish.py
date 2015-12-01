@@ -108,47 +108,34 @@ class Fish:
 
         for f in fishrights:
 
-
             id = self.fishrightId(f)
-
 
             type = f.find(ksj_type)
             if type != None:
                 type_t = type.text
 
-            if type_t in {'11', '12', '13'}:
+            if type_t in {'11', '12', '13', '30'}:
                 loc = self.findLoc(id)
                 way = self.locToOSM(loc)
-                self.tag(way, 'ksj_type', type.text)
+                self.tag(way, 'KSJ2:fish_right:type', type.text)
                 self.tag(way, 'seamark:type', 'marine_farm')
 
                 holder = f.find(ksj_right_holder)
                 if holder != None:
-                    self.tag(way, 'ksj_holder', holder.text)
+                    self.tag(way, 'KSJ2:fish_right:holder', holder.text)
 
                 product = f.find(ksj_product)
                 if product != None:
-                    self.tag(way, 'ksj_product', product.text)
+                    self.tag(way, 'KSJ2:fish_right:product', product.text)
                     self.setSeamarkCategory(way, product.text)
 
             else:
-                continue
+                pass
 
-
-
-            if type.text == '11':
-                pass
-            elif type.text == '12':
-                pass
-            elif type.text == '13':
-                pass
-            elif type.text == '30':
-                pass
-            else:
-                pass
 
     def setSeamarkCategory(self, way, product):
-        category = None
+        if product == None:
+            return
 
         if re.compile(u'シンジュ').search(product):
             self.tag(way, 'seamark:marine_farm:category', 'pearl_culture')
@@ -172,9 +159,9 @@ class Fish:
 if __name__ == '__main__':
     fish = Fish()
 
-#    fish.parse("C21-59L-jgd.xml")
+    fish.parse("C21-59L-jgd.xml")
 
-    fish.parse("test.xml")
+#    fish.parse("test.xml")
     fish.fisharea()
     et = ET.ElementTree(fish.osm)
     et.write('fish2.osm', encoding='utf-8', xml_declaration=True)
