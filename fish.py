@@ -2,6 +2,7 @@
 
 import xml.etree.ElementTree as ET
 import re
+import sys
 
 class Fish:
     def __init__(self):
@@ -160,13 +161,25 @@ class Fish:
 
 
 if __name__ == '__main__':
+    input = sys.stdin
+    output = sys.stdout
+
+    argv = sys.argv
+    argc = len(sys.argv)
+
+    if(argv == 2):
+        input = argv[0]
+        output = argv[1]
+    else:
+        print "python fish.py <inputfile> <outputfile>"
+
     fish = Fish()
 
-    fish.parse("C21-59L-jgd.xml")
+    fish.parse(input)
 
 #    fish.parse("test.xml")
     fish.fisharea()
-    et = ET.ElementTree(fish.osm)
+    et = ET.ElementTree(output)
     et.write('fish2.osm', encoding='utf-8', xml_declaration=True)
 
 
