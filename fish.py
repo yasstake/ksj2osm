@@ -167,9 +167,9 @@ if __name__ == '__main__':
     argv = sys.argv
     argc = len(sys.argv)
 
-    if(argv == 2):
-        input = argv[0]
-        output = argv[1]
+    if(argc == 3):
+        input = argv[1]
+        output = argv[2]
     else:
         print "python fish.py <inputfile> <outputfile>"
 
@@ -177,9 +177,8 @@ if __name__ == '__main__':
 
     fish.parse(input)
 
-#    fish.parse("test.xml")
     fish.fisharea()
-    et = ET.ElementTree(output)
-    et.write('fish2.osm', encoding='utf-8', xml_declaration=True)
+    et = ET.ElementTree(fish.osm)
+    et.write(output, encoding='utf-8', xml_declaration=True)
 
 
