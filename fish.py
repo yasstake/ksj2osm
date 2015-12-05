@@ -42,6 +42,8 @@ class Fish:
         loctext = poslist.text
 
         way = ET.SubElement(self.osm, 'way')
+        way.set('version', '1')
+        way.set('timestamp', '2015-12-01T21:37:45Z')
 
         initX = None
         initY = None
@@ -56,7 +58,7 @@ class Fish:
             if len(xy) == 0:
                 continue
 
-            self.id -= 1
+            self.id -= 2000000
 
             [x, y] = xy
             if initX == None:
@@ -77,6 +79,8 @@ class Fish:
                 node.set('lat', str(x))
                 node.set('lon', str(y))
                 node.set('id', str(self.id))
+                node.set('version', '1')
+                node.set('timestamp', '2015-12-01T21:37:45Z')
 
                 nd.set('ref', str(self.id))
                 lastId = self.id
@@ -130,7 +134,7 @@ class Fish:
 
                 product = f.find(ksj_product)
                 if product != None:
-                    self.tag(way, 'KSJ2:fish_right:product', product.text)
+                    self.tag(way, 'name', product.text)
                     self.setSeamarkCategory(way, product.text)
 
             else:
