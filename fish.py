@@ -10,7 +10,9 @@ class Fish:
                    'gml': 'http://www.opengis.net/gml/3.2',
                    'xlink': 'http://www.w3.org/1999/xlink',
                    'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
-        self.id = -1
+
+        self.id = -200000000000
+
         self.osm = ET._Element('osm')
         self.osm.set("version", "0.6")
 
@@ -58,7 +60,7 @@ class Fish:
             if len(xy) == 0:
                 continue
 
-            self.id -= 2000000
+            self.id -= 1
 
             [x, y] = xy
             if initX == None:
@@ -93,6 +95,7 @@ class Fish:
         self.tag(way, 'note:ja', "National-Land Numerical Information")
 
         self.id -= 1
+        print self.id
         way.set('id', str(self.id))
 
         locid = loc.get("{http://www.opengis.net/gml/3.2}id")
